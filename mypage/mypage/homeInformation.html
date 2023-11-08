@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>승애의 블로그</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/blog.css">
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    </head>
+    <body>
+        <header>
+        <h2>Keep Finding Your Joy</h2>
+        <nav id="topMenu">
+            <ul>
+                    <li><a class="menuLink" href="#">About me!</a></li>
+                    <li><a class="menuLink" href="#">Travelog</a></li>
+                    <li><a class="menuLink" href="#">My fav things</a></li>
+                    <li><a class="menuLink" href="#">Community</a></li>
+                    <li><a class="menuLink" href="#">etc...</a></li>
+            </ul>
+    </nav>
+    </header>
+    <section id="music">
+        <div id="imgSlider">
+            <img src="./img/1.jpg">
+            <img src="./img/2.jpg">
+            <img src="./img/3.jpg">
+            <img src="./img/4.jpg">
+            <img src="./img/5.jpg">
+            <img src="./img/6.jpg">
+            <img src="./img/7.jpg">
+        </div>
+        <script>
+            $(function() {
+                let currentNumber = 0;
+                let images = $("img");
+                images.hide(); 
+                images.eq(currentNumber).show(); //첫번째 이미지가 보임 
+
+                //다음 이미지 보여주는 함수 생성 
+                function nextImage() {
+                   
+                    images.eq(currentNumber).fadeOut(1000);
+                   
+                    currentNumber = (currentNumber + 1) % images.length;
+                    
+                    images.eq(currentNumber).fadeIn(1000);
+
+
+
+                }
+                setInterval(nextImage, 2000);
+            })
+        </script>
+        
+        
+    </section>
+    <section id="myAudio">
+        <audio id="myAudio" controls autoplay>
+            <source src="NewJeans - Super Shy.mp3" type="audio/mpeg">
+        </audio>
+
+        <script>
+            //자동 재생을 위한 코드
+            const audio = document.getElementById('myAudio');
+            audio.play();
+        </script>
+    </section>
+
+
+    <section id="gbook">
+        <h4>Guest Book ❤</h4>
+        <div class="comment">
+            <input id = "commentInput" placeholder="write">
+            <button onclick="addComment()">upload</button>
+            <div id="comments">
+                <!--댓글이 표시될 장소-->
+            </div>
+        </div>
+    </section>
+    <script>
+        function addComment(){
+            const commentInput = document.getElementById("commentInput");
+            const commentText = commentInput.value;
+
+            if(commentText.trim() === "") {
+                alert("댓글을 작성해주세요.")
+                return;
+            }
+
+            const commentsBox = document.getElementById("comments");
+
+            const commentDIV = document.createElement("div");
+            commentDIV.className = "comment";
+            commentDIV.textContent = commentText;
+
+            commentsBox.appendChild(commentDIV);
+            commentInput.value="";
+        }
+    </script>
+      
+    <section id="parisP">
+        <article>
+            <h4>❤Paris❤</h4>
+            
+            <div id="pagination">
+                <button id="prevPage">before</button>
+                <div class="img-container">
+                    <!--이미지를 추가하는 공간-->
+                </div>
+                <button id="nextPage">next</button>
+            </div>
+            <script>
+                const imag = [
+                    './img/파리7.jpg',
+                    './img/파리6.jpg',
+                    './img/파리5.jpg',
+                    './img/파리4.jpg',
+                    './img/파리3.jpg',
+                    './img/파리2.jpg',
+                    './img/파리1.jpg',
+                ];
+            const imagesPerpage = 3; //한페이지에 표시될 이미지 수 
+            let currentPage = 0; //현재 페이지를 나타내는 변수 
+                                 //초기값은 0으로 설정하여 첫 번째 페이지를 표시함
+            const imageContainer = document.querySelector('.img-container');
+            const prevButton = document.getElementById('prevPage'); //이전 버튼
+            const nextButton = document.getElementById('nextPage'); //다음 버튼
+
+            function displayImg(page) {
+                const startIndex = page * imagesPerpage;
+                const endIndex = startIndex + imagesPerpage;
+
+                const pageImages = imag.slice(startIndex, endIndex);
+
+                imageContainer.innerHTML = ''; //이미지를 표시해줄 컨테이너
+
+                
+                pageImages.forEach(imag => {
+                    const imgElement = document.createElement('img'); 
+                    imgElement.src = imag;
+                    imgElement.classList.add('image'); 
+                    imageContainer.appendChild(imgElement);
+                })
+
+            }
+
+            function updateButtons() {
+                prevButton.disabled = currentPage ===0;
+                nextButton.disabled = (currentPage + 1) * imagesPerpage >= imag.length; 
+            };
+
+            prevButton.addEventListener('click', () => {
+                if(currentPage > 0) { //현재 페이지 번호가 0보다 클 경우에만 실행 
+                    currentPage --; //현재 페이지 번호에서 하나를 감소시킴
+                    displayImg(currentPage); //새로운 현재 페이지에 해당하는 이미지를 표시 
+                    updateButtons(); //이전 버튼이 첫 번째 페이지에서 클릭하게 되면 더 이상 이전 버튼으로 가지 못하도록 이전버튼을 비활성화 
+                }
+            });
+
+            nextButton.addEventListener('click', () => {
+                if((currentPage + 1) *imagesPerpage < imag.length){
+                //현재 페이지의 번호를 하나 증가시켜 다음 페이지로 이동하게 함
+                currentPage++;
+                displayImg(currentPage);
+                updateButtons();
+                }
+            })
+
+            displayImg(currentPage);
+            updateButtons();
+       </script>
+        </article>
+   
+
+        
+    
+    <footer>
+        <p><a href= "">인스타그램</a> |<a href= "https://seungaeahn.tistory.com/">티스토리</a>| <a href= "">페이스북</a></p>
+       
+    </footer>
+    
+    </body>
+    
+   
+
+</html>
