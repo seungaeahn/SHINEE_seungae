@@ -40,7 +40,7 @@ public class mypageServlet extends HttpServlet {
 	         
 				//SELECT로 회원정보가져오기
 					//sql 생성 
-		            String sql =  "SELECT user_nickname, user_id FROM user_info WHERE user_id=?";
+		            String sql =  "SELECT * FROM user_info WHERE user_id=?";
 		            PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		            preparedStatement.setString(1, user_id);
 		            //실행 => 결과 저장 
@@ -50,11 +50,12 @@ public class mypageServlet extends HttpServlet {
 		           
 			
 				//성공할 경우 이동할 페이지 설정해주고 다시 전송
-				response.sendRedirect("mypageInfo.jsp");
+		       
+				response.sendRedirect("mypageMain.jsp");
 				
 			} catch (SQLException e) {
 				// 실패할 경우 이동할 페이지 설정
-				response.sendRedirect("mypageInfo.jsp");
+				response.sendRedirect("mypageLogout.jsp");
 				System.out.println("정보불러오기에 실패하였습니다.");
 				e.printStackTrace();
 			}

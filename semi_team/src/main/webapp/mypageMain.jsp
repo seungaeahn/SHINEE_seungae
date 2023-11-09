@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ page import="com.kh.mypage.UserInfo" %>
+<%@ page import="com.kh.mypage.MyPageDAO" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -50,9 +52,23 @@
                               <img class="profile" src="./img/루피.jpg" style="width: 200px; height: 200px;">    
                           
                         </div>
+                        <%
+                        
+                       
+                        
+                        
+                  //String = nickname값과 id값을 가지고 오겠다.
+                  
+                  String userIdValue = request.getParameter("user_id");
+                  String id = (String) session.getAttribute("user_id");
+                  MyPageDAO mypageDAO = new MyPageDAO();
+                  UserInfo userinfo = mypageDAO.getMember(id);
+                  
+                   %>
+                        
                         <div class="flex-grow-1 ms-3">
-                          <h3>닉네임${user_nickname.user_nickname }</h3>
-                          <h4>아이디${user_id.user_id }</h4>
+                          <h3><%= userinfo.getUserNickname() %></h3>
+                          <h4><%= userinfo.getUserId() %></h4>
                           <button class="btn btn-primary" onclick="location.href='modifyInfo.jsp'">프로필 수정하기</button>
                         </div>
                         
