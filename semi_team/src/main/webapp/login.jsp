@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -7,11 +7,7 @@
 		<title>Log in</title>
         <link rel="stylesheet" type="text/css" href="css/login.css">
         <link rel="stylesheet" type="text/css" href="css/all.css">
-        <script>
-        	function displayLoginFail(){
-				alert("일치하는 회원정보가 없습니다");
-			}
-        </script>
+        
 	</head>
 	<body>
         <div class="container" style="margin-top:30px;">

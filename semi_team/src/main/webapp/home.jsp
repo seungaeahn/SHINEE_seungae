@@ -4,21 +4,49 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<!-- ·Î±×¾Æ¿ô »óÅÂ¿¡¼­ Ã³À½ Á¢¼Ó È­¸é -->
+		<!-- ë¡œê·¸ì•„ì›ƒ ìƒíƒœì—ì„œ ì²˜ìŒ ì ‘ì† í™”ë©´ -->
 		<title>SHINee Music Home</title>
 		<link rel="stylesheet" type="text/css" href="css/login.css">
         <link rel="stylesheet" type="text/css" href="css/all.css">
 	</head>
 	<body>
 		<%
-			//user_id °ªÀÌ Á¸ÀçÇÒ °æ¿ì
+			//user_id ê°’ì´ ì¡´ì¬í•  ê²½ìš°
 			if(session.getAttribute("user_id") != null){
 		%>
-			<h3>·Î±×ÀÎ »óÅÂ¿¡¼­ º¸ÀÏ Ã¢À» ¸¸µé°Ù¾î¿ä</h3>
-			<p>myplaylist ÆäÀÌÁö·Î ÀÚµ¿ ¿¬°áÇÒÁöµµ</p>
+			<h3>ë¡œê·¸ì¸ ìƒíƒœì—ì„œ ë³´ì¼ ì°½ì„ ë§Œë“¤ê²Ÿì–´ìš”</h3>
+			<p>myplaylist í˜ì´ì§€ë¡œ ìë™ ì—°ê²°í• ì§€ë„</p>
+			<div class="container" style="margin-top:30px;">
+	            <aside>
+	                <button style="margin-top: 250px;" onclick="location.href='mypageMain.jsp'">
+	                    <img src="img/mypage.png" style="width:85px; padding:0;" alt="myPage Icon">
+	                    <p><strong>mypage</strong></p>
+	                </button>
+	                <button style="margin-top: 50px;">
+	                    <img src="img/lookaround.png" style="width:85px; padding:0;" alt="lookaround Icon">
+	                    <p><strong>my<br>Playlist</strong></p>
+	                </button>
+	                <button id="gotoSearchButton" style="margin-top: 50px;">
+	                    <img src="img/pixel_search.png" style="width:85px; padding:0;" alt="Search Icon">
+	                    <p><strong>search</strong></p>
+	                </button>
+	            </aside>
+	            <section>
+	                <div class="bluetop" style="margin-top:20px; width:1200px;">
+	                    <p style="margin-top:5px">Update My Info</p>
+	                </div>
+	                <div style="width:1200px; height:30px; background-color: gray;">
+	                </div>
+	                <article>
+	                    <div style="text-align: center; margin-top:8%">
+	                        <img src="img/dino.gif" alt="ìƒ¤ì´ë‹ˆë®¤ì§ ë¡œê³ " style="width:300px;">
+	                    </div>
+	              </article>
+	            </section>
+	        </div>
 		<%
 			} else {
-				//·Î±×¾Æ¿ô »óÅÂ¿¡¼­ º¸ÀÏ ÆäÀÌÁö ³»¿ë
+				//ë¡œê·¸ì•„ì›ƒ ìƒíƒœì—ì„œ ë³´ì¼ í˜ì´ì§€ ë‚´ìš©
 		%>
 	        <div class="container" style="margin-top:30px;">
 	            <aside>
@@ -43,39 +71,27 @@
 	                </div>
 	                <article>
 	                    <div style="text-align: center; margin-top:8%">
-	                        <img src="img/dino.gif" alt="»şÀÌ´Ï¹ÂÁ÷ ·Î°í" style="width:300px;">
+	                        <img src="img/dino.gif" alt="ìƒ¤ì´ë‹ˆë®¤ì§ ë¡œê³ " style="width:300px;">
 	                    </div>
 	                    <div style="text-align: center; margin-top: 20px;">
-	                        <h3>·Î±×ÀÎ ÈÄ ÀÌ¿ëÇØÁÖ¼¼¿ä</h3><br>
-	                        <button id="gotoLoginButton" style="width: 200px; padding: 10px; background-color: blue; color:white;">·Î±×ÀÎ ÇÏ±â</button><br>
-	                        <button id="joinButton" style="width: 200px; padding: 10px; margin-top: 5px;">È¸¿ø°¡ÀÔ ÇÏ±â</button>
+	                        <h3>ë¡œê·¸ì¸ í›„ ì´ìš©í•´ì£¼ì„¸ìš”</h3><br>
+	                        <button id="gotoLoginButton" style="width: 200px; padding: 10px; background-color: blue; color:white;">ë¡œê·¸ì¸ í•˜ê¸°</button><br>
+	                        <button id="joinButton" style="width: 200px; padding: 10px; margin-top: 5px;">íšŒì›ê°€ì… í•˜ê¸°</button>
 	                    </div>
 	                </article>
 	            </section>
 	        </div><!--container-->			
 		<%
-			} //else (·Î±×¾Æ¿ô »óÅÂ¿¡¼­ º¸¿©Áú Ã¢)
+			} //else (ë¡œê·¸ì•„ì›ƒ ìƒíƒœì—ì„œ ë³´ì—¬ì§ˆ ì°½)
 		%>
 		<script>
-			//·Î±×ÀÎÇÏ±â ¹öÆ° ´©¸£¸é ·Î±×ÀÎ Ã¢À¸·Î ÀÌµ¿
+			//ë¡œê·¸ì¸í•˜ê¸° ë²„íŠ¼ ëˆ„ë¥´ë©´ ë¡œê·¸ì¸ ì°½ìœ¼ë¡œ ì´ë™
 			document.getElementById("gotoLoginButton").addEventListener("click",()=>{
 				window.location.href = "login.jsp";
 			});
-			//°Ë»ö¹öÆ° ´©¸£¸é °Ë»ö Ã¢À¸·Î ÀÌµ¿
+			//ê²€ìƒ‰ë²„íŠ¼ ëˆ„ë¥´ë©´ ê²€ìƒ‰ ì°½ìœ¼ë¡œ ì´ë™
 			document.getElementById("gotoSearchButton").addEventListener("click",()=>{
 				window.location.href = "search.jsp";
 			})
 		</script>
 	</body>
-</html><%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>

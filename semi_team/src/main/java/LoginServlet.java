@@ -33,11 +33,11 @@ public class LoginServlet extends HttpServlet {
 		try {
 			Connection connection = DriverManager.getConnection(jdbcURL, userName, userPassword);
 			
-			//�α��� ������ �� ��ҵ�
+			
 			String user_id = request.getParameter("user_id");
 			String user_password = request.getParameter("user_password");
 			
-			//��ġ�ϴ� ������ �����ϴ���?
+			
 			String selectSQL = "SELECT * FROM user_info WHERE user_id =? AND user_password =?";
 			
 			PreparedStatement selectState = connection.prepareStatement(selectSQL);
@@ -58,12 +58,15 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("phone_number", resultSet.getString("phone_number"));
 				
 				
-				response.sendRedirect("mypageMain.jsp");
-				request.getRequestDispatcher("mypageMain.jsp");
+				response.sendRedirect("home.jsp");
+				request.getRequestDispatcher("home.jsp");
+				
+				
+				
 			} else {
 				//�α��� ����
 				request.setAttribute("loginError", "true");
-				request.getRequestDispatcher("login.jsp").forward(request, response); //�α��� ���������� �ٽ� ������ ����
+				request.getRequestDispatcher("login.jsp").forward(request, response); 
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

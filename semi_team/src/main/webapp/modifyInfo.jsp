@@ -1,38 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.mypage.UserInfo" %>
+<%@ page import="com.kh.mypage.MyPageDAO" %>
 <!DOCTYPE html>
 <html lang="ko">
     <head>
         <meta charset="UTF-8">
-        <title>SHINee Music회원정보 페이지</title>
+        <title>SHINee Music회원정보수정 페이지</title>
         <link rel="stylesheet" type="text/css" href="CreateAccountPage.css">
+
     </head>
     <body>
         <div class="pageColor">
-            <div class="TabColor"><img src="images/mypage.png" class="TabiconImage"><strong class="TabTextStyle">회원 가입</strong> 
+            <div class="TabColor"><img src="images/mypage.png" class="TabiconImage"><strong class="TabTextStyle">Modify My Info</strong> 
                 <button id="pageCloseButton" class="pageCloseButton" onclick="closeButton()"><Strong class="pageCloseButtonText">X</Strong></button>
-            </div>           
-                <div id="createAccount">
+            </div>          
+             
+                <form action="ModifyServlet" method="post" id="createAccount">
+                <%
+               
+                  //String = id값을 가지고 오겠다.
+                  
+                  //String userIdValue = request.getParameter("user_id");
+                  String id = (String) session.getAttribute("user_id");
+                  MyPageDAO mypageDAO = new MyPageDAO();
+                  UserInfo userinfo = mypageDAO.getMember(id);
+                  
+                   %>
                 <div id="divid">
-                    <label for="id">
+                    <label for="user_id">
                         <img class="iconImg" src="images/user.png">
                     </label>
-                    <input id="id" type="text" value="${userinfo.getUserNickname }" readonly="readonly">
+                    <input name="user_id" type="text" value="<%= userinfo.getUserId() %>" readonly="readonly">
                    
                     <p id="ruleid"></p>
                 </div>
                 <div>
-                    <label for="name">
+                    <label for="user_name">
                         <img class="iconImg" src="images/name.png">
                     </label>
-                    <input id="name" type="text" placeholder="이름">
+                    <input name="user_name" type="text" value= "<%= userinfo.getUserName() %>">
                     <p id="rulename"></p>
                 </div>
                 <div>
-                    <label for="pw">
+                    <label for="user_password">
                         <img class="iconImg" src="images/password.png">
                     </label>
-                    <input id="pw" type="password" value="${userinfo.getUserNickname }" oninput="pwCheck()"  placeholder="비밀번호">
+                    <input name="user_password" type="password"  oninput="pwCheck()"  value="<%=userinfo.getUserPassword() %>">
                     <p id="rulepm"></p>
                 </div>
                 <div>
@@ -44,13 +58,14 @@
                 </div>
                 <br>
                 <div>
-                    <label for="nickname">
+                    <label for="user_nickname">
                         <img class="iconImg" src="images/profile.png">
                     </label>
-                    <input id="nickname" type="text" placeholder="닉네임">
+                    <input name="user_nickname"  type="text" value="<%=userinfo.getUserNickname()%>">
                     <p id="rulenickname"></p>
                 </div>
                 
+            
                 <div>
                     <div id="profileContainer">
                         <!-- 프로필 사진을 표시할 컨테이너 -->
@@ -61,25 +76,23 @@
                 </div>
                 <br>
                 <div>
-                    <label for="emailid">
+                    <label for="email">
                         <img class="iconImg" src="images/email.png">
                     </label>
-                    <input id="emailid" type="text" placeholder="myemail">
-                    <strong>@</strong>
-                    <input id="emailLink" type="text" placeholder="naver.com">
+                    <input name="email" type="text" value="<%=userinfo.getEmail() %>">
                     <p id="ruleemail"></p>
                 </div>
                 
                 <div>
-                    <label for="phoneNumber">
+                    <label for="phone_number">
                         <img class="iconImg" src="images/phone.png">
                     </label>
-                    <input id="phoneNumber" type="text" placeholder="01012345678">
+                    <input name="phone_number" type="text" value="<%=userinfo.getPhoneNumber() %>">
                     <p id="rulephoneNumber"></p>
                 </div>
-                <button id="createUserButton" onclick="CreateUser()">정보수정</button>
+                <button id="createUserButton" type="submit" >정보수정</button>
+                </form>
             </div>
-        </div>
         <script src="https://code.jquery.com/jquery-3.7.1.js" 
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" 
         crossorigin="anonymous"></script>

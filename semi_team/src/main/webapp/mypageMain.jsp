@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="com.kh.mypage.UserInfo" %>
 <%@ page import="com.kh.mypage.MyPageDAO" %>
 <!DOCTYPE html>
@@ -49,7 +49,7 @@
                             <br>
                             <br>
                             <br>
-                              <img class="profile" src="./img/·çÇÇ.jpg" style="width: 200px; height: 200px;">    
+                              <img class="profile" src="./img/ë£¨í”¼.jpg" style="width: 200px; height: 200px;">    
                           
                         </div>
                         <%
@@ -57,9 +57,9 @@
                        
                         
                         
-                  //String = nickname°ª°ú id°ªÀ» °¡Áö°í ¿À°Ú´Ù.
+                  //String = nicknameê°’ê³¼ idê°’ì„ ê°€ì§€ê³  ì˜¤ê² ë‹¤.
                   
-                  String userIdValue = request.getParameter("user_id");
+                  //String userIdValue = request.getParameter("user_id");
                   String id = (String) session.getAttribute("user_id");
                   MyPageDAO mypageDAO = new MyPageDAO();
                   UserInfo userinfo = mypageDAO.getMember(id);
@@ -69,7 +69,8 @@
                         <div class="flex-grow-1 ms-3">
                           <h3><%= userinfo.getUserNickname() %></h3>
                           <h4><%= userinfo.getUserId() %></h4>
-                          <button class="btn btn-primary" onclick="location.href='modifyInfo.jsp'">ÇÁ·ÎÇÊ ¼öÁ¤ÇÏ±â</button>
+                          <h4><%= userinfo.getEmail() %></h4>
+                          <button class="btn btn-primary" onclick="location.href='modifyInfo.jsp'">í”„ë¡œí•„ ìˆ˜ì •í•˜ê¸°</button>
                         </div>
                         
                       </div> 
@@ -77,7 +78,7 @@
           <div class="col-md-3">
             <div class="white-box">
               <h2>My Playlist</h2>
-              <p>¿©±â´Â ´ëÇ¥ ÇÃ·¹ÀÌ½ºÆ®°¡ º¸ÀÌ´Â ÀÚ¸®ÀÔ´Ï´Ù.</p>
+              <p>ì—¬ê¸°ëŠ” ëŒ€í‘œ í”Œë ˆì´ìŠ¤íŠ¸ê°€ ë³´ì´ëŠ” ìžë¦¬ìž…ë‹ˆë‹¤.</p>
             </div>
           </div>
           <br><br>
@@ -86,7 +87,7 @@
               <div class="mb-5">
                 <h2>Followings</h2>
                 <p>
-                ¿©±â´Â ÆÈ·ÎÀ×ÇÑ »ç¶÷µéÀÇ ÇÁ·ÎÇÊÀÌ³ª ÇÃ¸®¸¦ ¶ç¿ìÀÚ
+                ì—¬ê¸°ëŠ” íŒ”ë¡œìž‰í•œ ì‚¬ëžŒë“¤ì˜ í”„ë¡œí•„ì´ë‚˜ í”Œë¦¬ë¥¼ ë„ìš°ìž
                 </p>
               </div>
               
