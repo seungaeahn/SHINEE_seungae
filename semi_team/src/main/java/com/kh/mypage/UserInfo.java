@@ -1,5 +1,7 @@
 package com.kh.mypage;
 
+import java.sql.Blob;
+
 public class UserInfo {
 	private String user_id;
 	private String user_name;
@@ -7,6 +9,8 @@ public class UserInfo {
 	private String user_password;
 	private String email;
 	private String phone_number;
+	private String profile_image;
+	
 	
 //	public UserInfo(String userNickname, String userId) {
 //		this.user_id = user_id;
@@ -15,16 +19,25 @@ public class UserInfo {
 //		
 //	}
 	
-	public UserInfo(String user_id,String user_name, String user_nickname, String user_password, String email, String phone_number) {
+	public UserInfo(String user_id,String user_name, String user_nickname, String user_password, String email, String phone_number, String profile_image) {
 		this.user_id = user_id;
 		this.user_name = user_name;
 		this.user_nickname = user_nickname;
 		this.user_password = user_password;
 		this.email = email;
 		this.phone_number = phone_number;
+		this.profile_image = profile_image;
 	}
 	
-//	
+public String getProfile_image() {
+		return profile_image;
+	}
+
+	public void setProfile_image(String profile_image) {
+		this.profile_image = profile_image;
+	}
+
+	//	
 	public String getUserId() {
 		return user_id;
 	}
