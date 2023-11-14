@@ -16,7 +16,7 @@
                 <button id="pageCloseButton" class="pageCloseButton" onclick="closeButton()"><Strong class="pageCloseButtonText">X</Strong></button>
             </div>          
              
-                <form action="ModifyServlet" method="post" id="createAccount">
+                <form action="ModifyServlet" method="post" id="createAccount" enctype="multipart/form-data">
                 <%
                
                   //String = id값을 가지고 오겠다.
@@ -71,8 +71,10 @@
                         <!-- 프로필 사진을 표시할 컨테이너 -->
                         <img id="uploadProfile">
                     </div>
-                    <input type="file" id="profileInput" accept="image/*" style="margin: 0 0 0 6%;">
-                    <button id="profileUploadButton">프로필 등록</button>
+                    <label for="profileInput">
+                    <input type="file" id="profileInput" name="profileInput" accept="image/jpg" style="margin: 0 0 0 6%;">
+                    </label>
+                    <button id="profileUploadButton" type="button">프로필 등록</button>
                 </div>
                 <br>
                 <div>
@@ -90,7 +92,7 @@
                     <input name="phone_number" type="text" value="<%=userinfo.getPhoneNumber() %>">
                     <p id="rulephoneNumber"></p>
                 </div>
-                <button id="createUserButton" type="submit" >정보수정</button>
+                <button id="createUserButton" type="submit"  >정보수정</button>
                 </form>
             </div>
         <script src="https://code.jquery.com/jquery-3.7.1.js" 

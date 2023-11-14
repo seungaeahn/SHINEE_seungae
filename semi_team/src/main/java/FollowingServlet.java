@@ -39,10 +39,16 @@ public class FollowingServlet extends HttpServlet {
 				
 	            String follower_id = request.getParameter("follower_id");
 	            String following_id = request.getParameter("following_id");
+	            String user_nickname = request.getParameter("user_nickname");
+	            String profile_image = request.getParameter("profile_image");
 	         
 				//SELECT로 회원정보가져오기
 					//sql 생성 
-		            String sql =  "SELECT * FROM follow_list WHERE follower_id=?";
+	            String sql = "SELECT *"
+						+ "FROM follow_list"
+						+ "INNER JOIN user_info ON follow_list.following_id = user_info.user_id"
+						+ "WHERE follow_list.follower_id = ?";
+				
 		            PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		            preparedStatement.setString(1, follower_id);
 		            //실행 => 결과 저장 

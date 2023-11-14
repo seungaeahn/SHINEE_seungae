@@ -41,11 +41,14 @@ public class PlaylistServlet extends HttpServlet {
 	            String playlist_id = request.getParameter("playlist_id");
 	            String user_id = request.getParameter("user_id");
 	            String playlist_name = request.getParameter("playlist_name");
+	            String playlist_image = request.getParameter("playlist_image");
+	        	
+	        	
 	           
 	         
 				//SELECT로 회원정보가져오기
 					//sql 생성 
-		            String sql =  "SELECT playlist_id, user_id, playlist_name FROM playlist_info WHERE user_id=?";
+		            String sql =  "SELECT playlist_id, user_id, playlist_name, playlist_image FROM playlist_info_2 WHERE user_id=?";
 		            PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		            preparedStatement.setString(1, user_id);
 		            //실행 => 결과 저장 

@@ -3,9 +3,9 @@
 <%@ page import="com.kh.mypage.UserInfo" %>
 <%@ page import="com.kh.mypage.MyPageDAO" %>
 <%@ page import="com.kh.mypage.FollowList" %>
-<%@ page import="com.kh.mypage.followDAO" %>
 <%@ page import="com.kh.mypage.PlayList" %>
 <%@ page import="com.kh.mypage.PlayListDAO" %>
+<%@ page import="com.kh.mypage.followBlobDAO" %>
 <%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
@@ -29,6 +29,7 @@
     }
     .playlists {
     }
+    
     
         </style>
         <link rel="stylesheet" href="./css/all.css">
@@ -77,6 +78,7 @@
                   MyPageDAO mypageDAO = new MyPageDAO();
                   UserInfo userinfo = mypageDAO.getMember(id);
                   
+                  
                  
                   
                   
@@ -100,6 +102,22 @@
 			                <img src="images/pencil.png" style="width:40px; padding:0;" alt="Modify Icon">
 			             
 			            </button>
+			            <br>
+			            <form action="DeleteUserInfoServlet" method="post" id="deleteForm">
+					    <input type="hidden" name="user_id" value="<%= userinfo.getUserId() %>">
+					    <button type="button" class="btn btn-default pull right" onclick="confirmAndSubmit()">삭제하기</button>
+						</form>
+						
+						<script>
+						function confirmAndSubmit() {
+						    if (confirm('정말 Shinee Nusic을 탈퇴하시겠습니까?')) {
+						        // 사용자가 확인을 누르면 폼을 제출합니다.
+						        document.getElementById('deleteForm').submit();
+						    } else {
+						        // 사용자가 취소를 누른 경우 다른 작업을 수행하거나 아무것도 하지 않습니다.
+						    }
+						}
+						</script>
                         </div>
                         
                       </div> 
@@ -114,12 +132,15 @@
                 PlayListDAO pDAO = new PlayListDAO();
                 List<PlayList> playlists = pDAO.getAllPlayLists(id);
                 
+                
                 for(PlayList p : playlists) {
                 %>
-                <tr>
-                	<td><img class="profile" src="images/세븐틴.jpg" style="width: 200px; height: 200px;  margin-left: 50px;"><br><p><strong> <%= p.getPlaylist_name() %> </strong></p></td>
-                	
-                </tr>
+                <div style="display: inline-block; margin: 10px;">
+                    <img class="profile" src="<%= p.getPlaylist_image() %>" style="width: 200px; height: 200px;">
+                    <div><p><strong><%= p.getPlaylist_name() %></strong></p></div>
+                    
+                </div>
+                
                 <%
                 	}
                 %>
@@ -141,19 +162,26 @@
               <img class="profile" src="images/blueheart.gif" style="width: 80px; height: 80px;">   
                 <h3>Followings</h3>
                 <%
-                //회원의 팔로우 리스트 가져오기!!!!
-                followDAO fDAO = new followDAO();
-                List<FollowList> followlists = fDAO.getAllFollowings(id);
                 
+                
+             	 //Blob 땜에 만든 followBlobDAO도 가져오기
+                followBlobDAO fbDAO = new followBlobDAO();
+                List<FollowList> followlists = fbDAO.getAllFollowings(id);
+                
+              
+                
+               
                 for(FollowList f : followlists) {
-                %>
-                	<tr>
-                	<td> <%= f.getFollowing_id() %> </td>
-                	
-                	</tr>
-                <%
-                	}
-                %>
+            %>
+                <div style="display: inline-block; margin: 10px;">
+                    <img class="profile" src="<%= f.getProfile_image() %>" style="width: 200px; height: 200px;">
+                    <div><p><strong><%= f.getUser_nickname() %></strong></p></div>
+                    <div><p><strong><%= f.getFollowing_id() %></strong></p></div>
+                </div>
+            <%
+                }
+            %>
+
               </div>
               
             </div>

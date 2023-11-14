@@ -7,12 +7,24 @@ public class PlayList {
 	private String user_id;
 	private String playlist_name;
 	private Date create_date;
+	private String playlist_image;
 	
-	public PlayList(String playlist_id, String user_id, String playlist_name) {
+	
+
+	public PlayList(String playlist_id, String user_id, String playlist_name, String playlist_image) {
 		this.playlist_id = playlist_id;
 		this.user_id = user_id;
 		this.playlist_name = playlist_name;
+		this.playlist_image = playlist_image;
 		
+	}
+	
+	public String getPlaylist_image() {
+		return playlist_image;
+	}
+
+	public void setPlaylist_image(String playlist_image) {
+		this.playlist_image = playlist_image;
 	}
 	
 	public String getPlaylist_id() {

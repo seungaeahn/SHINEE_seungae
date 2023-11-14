@@ -2,7 +2,6 @@ package com.kh.mypage;
 
 import java.sql.Blob;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,12 +9,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayListDAO {
+public class followBlobDAO {
 	private static final String jdbcURL = "jdbc:oracle:thin:@localhost:1521";
 	private static final String jdbcUsername = "shinee";
 	private static final String jdbcPassword = "shinee";
 	
-	public PlayListDAO() {
+	public followBlobDAO() {
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
 		} catch (ClassNotFoundException e) {
@@ -26,33 +25,33 @@ public class PlayListDAO {
 	
 	Connection con = null;
 	
-	public List<PlayList> getAllPlayLists(String user_id) {
-		List<PlayList> playlists = new ArrayList<>();
+	public List<FollowList> getAllFollowings(String follower_id) {
+		List<FollowList> followlists = new ArrayList<>();
 		
 		try {
 			con = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-			String sql = "SELECT playlist_id, user_id, playlist_name, playlist_image FROM playlist_info_2 WHERE user_id=?";
+			String sql = "SELECT * " +
+	                "FROM follow_list " +
+	                "INNER JOIN user_info ON follow_list.following_id = user_info.user_id " +
+	                "WHERE follow_list.follower_id = ?";
+			
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, user_id);
+			ps.setString(1, follower_id);
 			ResultSet resultSet = ps.executeQuery();
 			
 			while (resultSet.next()) {
 	            
-				String playlistId = resultSet.getString("playlist_id");
-	            String userId = resultSet.getString("user_id");
-	            String playlistName = resultSet.getString("playlist_name");
+				String followerId = resultSet.getString("follower_id");
+	            String followingId = resultSet.getString("following_id");
+	            String userNickname = resultSet.getString("user_nickname");
 	           
-	            
-	            Blob blob = resultSet.getBlob("playlist_image");
+	            Blob blob = resultSet.getBlob("profile_image");
                 byte[] imageData = blob.getBytes(1, (int) blob.length());
                 String imageBase64 = java.util.Base64.getEncoder().encodeToString(imageData);
-                String playlist_image = "data:image/jpeg;base64, " + imageBase64;
+                String profile_image = "data:image/jpeg;base64, " + imageBase64;
 				
-	           
-				PlayList playlist = new PlayList(playlistId, userId, playlistName, playlist_image);
-				playlists.add(playlist);
-				
-	       
+	            FollowList followlist = new FollowList(followerId, followingId, userNickname, profile_image);
+	            followlists.add(followlist);
 
 	        }
 			
@@ -61,6 +60,6 @@ public class PlayListDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return playlists;
+		return followlists;
 	}
 }

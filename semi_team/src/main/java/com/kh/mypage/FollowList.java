@@ -3,13 +3,52 @@ package com.kh.mypage;
 public class FollowList {
 	private String follower_id;
 	private String following_id;
+	private String user_nickname;
+	private String profile_image;
 	
+
+	public FollowList(String follower_id, String following_id, String user_nickname, String profile_image) {
+		this.follower_id = follower_id;
+		this.following_id = following_id;
+		this.profile_image = profile_image;
+		this.user_nickname = user_nickname;
+		
+	}
+
+	
+	
+	
+	
+	public String getUser_nickname() {
+		return user_nickname;
+	}
+
+
+	public void setUser_nickname(String user_nickname) {
+		this.user_nickname = user_nickname;
+	}
+
+
+
+
+
+	public String getProfile_image() {
+		return profile_image;
+	}
+
+
+	public void setProfile_image(String profile_image) {
+		this.profile_image = profile_image;
+	}
+
 
 	public FollowList(String follower_id,String following_id) {
 		this.follower_id = follower_id;
 		this.following_id = following_id;
 	}
 
+
+	
 
 	public String getFollower_id() { 
 		return follower_id;

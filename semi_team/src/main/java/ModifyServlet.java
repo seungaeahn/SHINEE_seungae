@@ -7,12 +7,15 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 @WebServlet("/ModifyServlet")
+@MultipartConfig
 public class ModifyServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -41,11 +44,11 @@ public class ModifyServlet extends HttpServlet {
 			String user_password = request.getParameter("user_password");
 			String email = request.getParameter("email");
 			String phone_number = request.getParameter("phone_number");
-			String profile_image = request.getParameter("profile_image");
+			Part profileInput = request.getPart("profileInput");
 			
 			System.out.println(user_id);
 			System.out.println(user_name);
-			String sql = "UPDATE user_info SET user_name=?, user_nickname=?, user_password=?, email=?, phone_number=? WHERE user_id=?";
+			String sql = "UPDATE user_info SET user_name=?, user_nickname=?, user_password=?, email=?, phone_number=?, profile_image=? WHERE user_id=?";
 			
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setString(1,user_name);
@@ -53,7 +56,9 @@ public class ModifyServlet extends HttpServlet {
 			ps.setString(3,user_password);
 			ps.setString(4,email);
 			ps.setString(5,phone_number);
-			ps.setString(6,user_id);
+			ps.setBinaryStream(6, profileInput.getInputStream(),(int) profileInput.getSize());
+			ps.setString(7,user_id);
+			
 			
 			ps.executeUpdate();
 			
